@@ -1,6 +1,14 @@
 buildscript {
     ext {
         compose_ui_version = '1.1.1'
+        compose_version = '1.2.0-beta03'
+        compose_version = '1.2.0-beta03'
+        lifecycleVersion = '2.3.1'
+        kotlinVersion = '1.5.21'
+        ktlintVersion = '0.41.0'
+        coroutines = '1.5.0'
+        moshi_version = '1.12.0'
+        nav_version = "2.5.2"
     }
 }// Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
