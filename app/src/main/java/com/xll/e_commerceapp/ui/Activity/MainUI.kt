@@ -1,6 +1,7 @@
 package com.xll.e_commerceapp.ui.Activity
 
-import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.*
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -10,6 +11,8 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,49 +33,117 @@ import com.xll.e_commerceapp.ui.control.Screen
 
 
 @Composable
-fun MainUI(action: (id :String) -> Unit) {
+fun MainUI(action: (id: String) -> Unit) {
+    var isScreen by remember { mutableStateOf(true) }
+    val start = listOf<EnterTransition>(slideInVertically())
+    val end = listOf<ExitTransition>(slideOutHorizontally())
 //    val Image1 = painterResource(id = R.drawable.image1)
+    Box(
+        modifier = Modifier.fillMaxSize(), Alignment.BottomEnd
+    ) {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Bottom,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            AnimatedVisibility(visible = isScreen) { screen(1) }
+            AnimatedVisibility(
+                visible = !isScreen,
+                enter = start.random(),
+                exit = end.random()
+            ) { screen(2) }
+            Spacer(modifier = Modifier.padding(60.dp))
+        }
+        next {
+            if (isScreen == false) action(Screen.Home.idScreen) else isScreen = false
+        }
+    }
+}
+
+@Composable
+fun next(update: () -> Unit) {
     Column(
         modifier =
         Modifier
-            .fillMaxSize()
+            .fillMaxWidth()
             .background(color = Color(0xFFF3F3F3)),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        image(R.drawable.image1)
-        Column(
-            Modifier
-                .fillMaxWidth()
-                .padding(3.dp),
-//                .border(2.dp, shape = RoundedCornerShape(20.dp), color = Color.Black),
-            horizontalAlignment = Alignment.Start
-        ) {
-            TextB("No more\n" + "boring things")
-            TextC("Picking up accessories from \n" + "popular European brands.")
-        }
+
         Row(
-            modifier = Modifier.fillMaxWidth().padding(end = 30.dp, start = 30.dp, top = 20.dp, bottom = 20.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(end = 30.dp, start = 30.dp, top = 20.dp, bottom = 20.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = "Skip", color = Color(0xFFB4B6BA), modifier = Modifier.padding(start = 5.dp), style = TextStyle(fontSize = 20.sp))
+            Text(
+                text = "Skip",
+                color = Color(0xFFB4B6BA),
+                modifier = Modifier.padding(start = 5.dp),
+                style = TextStyle(fontSize = 20.sp)
+            )
             Box() {}
             Button(
-                onClick = {action(Screen.Home.idScreen)},
-                modifier = Modifier,shape = RoundedCornerShape(20),
-                contentPadding = PaddingValues(end = 40.dp, start = 40.dp, top = 20.dp, bottom = 20.dp)
-                ,
+                onClick = {
+                    update()
+//                    action(Screen.Home.idScreen)
+                },
+                modifier = Modifier, shape = RoundedCornerShape(20),
+                contentPadding = PaddingValues(
+                    end = 40.dp,
+                    start = 40.dp,
+                    top = 20.dp,
+                    bottom = 20.dp
+                ),
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black)
             ) {
-                Text(text = "Next", color = Color.White, style = TextStyle( fontWeight = FontWeight.Bold))
+                Text(
+                    text = "Next",
+                    color = Color.White,
+                    style = TextStyle(fontWeight = FontWeight.Bold)
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun screen(state: Int) {
+
+    Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        if (state == 1) {
+            image(R.drawable.image1)
+            Column(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(3.dp),
+//                .border(2.dp, shape = RoundedCornerShape(20.dp), color = Color.Black),
+                horizontalAlignment = Alignment.Start
+            ) {
+                TextB("No more\n" + "boring things")
+                TextC("Picking up accessories from \n" + "popular European brands.")
+            }
+        } else if (state == 2) {
+            image(R.drawable.image2)
+            Column(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(3.dp),
+//                .border(2.dp, shape = RoundedCornerShape(20.dp), color = Color.Black),
+                horizontalAlignment = Alignment.Start
+            ) {
+                TextB("Exploring the\n" + "fashion trends")
+                TextC("We form assortment that\n" + "follows fashion trends")
             }
         }
 
     }
-
-
 }
 
 @Composable
