@@ -18,7 +18,7 @@ fun NavigatingControl() {
             }
         }
         composable(Screen.Home.idScreen) {
-            Home { navController.navigate( Screen.Main.idScreen) }
+            Home {  navController.navigate(it) }
 
         }
 
