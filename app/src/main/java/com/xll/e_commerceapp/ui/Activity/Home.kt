@@ -2,21 +2,22 @@ package com.xll.e_commerceapp.ui.Activity
 
 import android.view.LayoutInflater
 import android.widget.EditText
-import android.widget.TextView
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.modifier.modifierLocalConsumer
-
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import coil.compose.AsyncImage
 import com.xll.e_commerceapp.R
@@ -24,14 +25,15 @@ import com.xll.e_commerceapp.R
 @Composable
 fun Home(action: (id: String) -> Unit ) {
 
-Column(
-    Modifier
-        .fillMaxSize()
-        .background(color = Color(0xFFF3F3F3))) {
-    SearchXml()
-    topMenu()
-    offShoes()
-}
+
+    LazyColumn{
+        item { SearchXml() }
+        item { topMenu() }
+        item { offShoes() }
+        item {  }
+    }
+
+
 }
 
 
@@ -52,13 +54,24 @@ fun offShoes() {
     Card(shape = RoundedCornerShape(20.dp), modifier = Modifier
         .fillMaxWidth()
         .padding(20.dp)) {
-        Row() {
-            Column(modifier = Modifier
-                .padding(20.dp)
-                .background(shape = RoundedCornerShape(20.dp),color = Color(0xFFF3F3F3))) {
-                   AsyncImage(model = R.drawable.accessories, contentDescription = "", modifier = Modifier.size(80.dp).padding(15.dp))
+        Row(modifier = Modifier, verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Column(modifier = Modifier
+                    .padding(20.dp)
+                    .background(shape = RoundedCornerShape(20.dp), color = Color(0xFFF3F3F3))) {
+                    AsyncImage(model = R.drawable.discount, contentDescription = "", modifier = Modifier
+                        .size(80.dp)
+                        .padding(15.dp))
+                }
+                Column(modifier = Modifier, horizontalAlignment = Alignment.Start, verticalArrangement = Arrangement.Center) {
+                    Text(text = "50% OFF", style = TextStyle(fontSize = 25.sp))
+                    Text(text = "on cll women's shoes", style = TextStyle(fontSize = 15.sp))
+                }
             }
-
+            Box {}
+            Icon(Icons.Filled.KeyboardArrowRight, contentDescription = "", modifier = Modifier
+                .size(40.dp)
+                .padding(end = 20.dp))
         }
     }
 }
