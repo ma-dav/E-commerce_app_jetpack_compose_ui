@@ -30,6 +30,8 @@
 
             android:layout_gravity="center"
             android:background="@drawable/filter_icon"/>
+
+
     </LinearLayout>
 
 </LinearLayout>

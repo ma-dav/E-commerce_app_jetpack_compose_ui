@@ -47,6 +47,12 @@ android {
 }
 
 dependencies {
+    //constraintlayout:Xml
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    ///picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    //cardview
+    implementation("androidx.cardview:cardview:1.0.0")
     //recyclerview
     implementation("androidx.recyclerview:recyclerview:1.2.1")
     // coil

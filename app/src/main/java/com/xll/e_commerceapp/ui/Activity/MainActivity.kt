@@ -16,12 +16,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             Column(Modifier.fillMaxSize()) {
-                NavigatingControl()
+                NavigatingControl(this@MainActivity)
             }
-
-
         }
     }
- 
 }
 
