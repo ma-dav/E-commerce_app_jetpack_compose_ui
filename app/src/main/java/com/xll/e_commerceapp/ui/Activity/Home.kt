@@ -13,6 +13,8 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,18 +30,32 @@ import coil.compose.AsyncImage
 import com.xll.e_commerceapp.R
 import com.xll.e_commerceapp.ui.Activity.xml.adpter.HomeAdpter
 import com.xll.e_commerceapp.ui.Activity.xml.adpter.data
+import com.xll.e_commerceapp.ui.control.BottomNavigation.CustomBottomNavigation
+import com.xll.e_commerceapp.ui.control.BottomNavigation.ScreenHome
 
 @Composable
 fun Home(action: (id: String) -> Unit, context: Context) {
 
-
-    LazyColumn {
-        item { SearchXml() }
-        item { topMenu() }
-        item { offShoes() }
-        item { NewItemText() }
-        item { RecyclerViewXml(context)}
+    var currentScreen by remember{
+        mutableStateOf<ScreenHome>(ScreenHome.Home)
     }
+   Box {
+
+       LazyColumn {
+           item { SearchXml() }
+           item { topMenu() }
+           item { offShoes() }
+           item { NewItemText() }
+           item { RecyclerViewXml(context)}
+       }
+       Row(modifier = Modifier.fillMaxSize() , verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.Center) {
+           CustomBottomNavigation(currentScreenId = currentScreen.id,){ id->
+               currentScreen = id
+           }
+       }
+   }
+
+
 
 
 }
