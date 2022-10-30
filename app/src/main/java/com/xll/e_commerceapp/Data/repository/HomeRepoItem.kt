@@ -5,5 +5,6 @@ import android.icu.text.CaseMap.Title
 data class HomeRepoItem (
     val Image :Int,
     val title :String,
-    val price :String
+    val price :String,
+    var heart: Boolean
     )

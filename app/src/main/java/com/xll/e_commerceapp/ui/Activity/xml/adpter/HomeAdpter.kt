@@ -14,8 +14,10 @@ import com.xll.e_commerceapp.R
 
 class HomeAdpter(var context: Context)  : RecyclerView.Adapter<HomeAdpter.ViewHoler>(){
     var list = ArrayList<HomeRepoItem>()
+
     inner class ViewHoler(view: View) : RecyclerView.ViewHolder(view) {
         var Image = view.findViewById<ImageView>(R.id.Image)
+        var heart = view.findViewById<ImageView>(R.id.heart)
         var price = view.findViewById<TextView>(R.id.price)
         var title = view.findViewById<TextView>(R.id.title)
     }
@@ -25,9 +27,15 @@ class HomeAdpter(var context: Context)  : RecyclerView.Adapter<HomeAdpter.ViewHo
         )
     }
     override fun onBindViewHolder(holder: ViewHoler, position: Int) {
-        Picasso.get().load(list[position].Image).centerCrop().fit().into(holder.Image)
-        holder.title.text = list[position].title
-        holder.price.text = list[position].price
+        val listPosition = list[position]
+        Picasso.get().load(listPosition.Image).centerCrop().fit().into(holder.Image)
+        if (listPosition.heart) Picasso.get().load(R.drawable.heart).into(holder.heart) else Picasso.get().load(R.drawable.heartblek).into(holder.heart)
+        holder.title.text = listPosition.title
+        holder.price.text = listPosition.price
+        holder.heart.setOnClickListener {
+             listPosition.heart = !listPosition.heart
+             notifyDataSetChanged()
+        }
     }
     override fun getItemCount(): Int {
         return list.size

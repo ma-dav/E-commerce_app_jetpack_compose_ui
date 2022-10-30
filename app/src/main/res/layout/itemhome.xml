@@ -18,11 +18,12 @@
             android:layout_margin="10dp"
             android:layout_height="wrap_content">
             <ImageView
+                android:id="@+id/heart"
                 android:layout_margin="10dp"
 
                 android:layout_width="20dp"
                 android:layout_height="25dp"
-                android:background="@drawable/heart"/>
+             />
 
         </androidx.cardview.widget.CardView>
 
