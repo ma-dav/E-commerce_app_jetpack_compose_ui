@@ -6,6 +6,8 @@ import android.widget.EditText
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
@@ -47,6 +49,8 @@ fun Home(action: (id: String) -> Unit, context: Context) {
            item { offShoes() }
            item { NewItemText() }
            item { RecyclerViewXml(context)}
+           listItem()
+
        }
        Row(modifier = Modifier.fillMaxSize() , verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.Center) {
            CustomBottomNavigation(currentScreenId = currentScreen.id,){ id->
@@ -61,6 +65,12 @@ fun Home(action: (id: String) -> Unit, context: Context) {
 }
 
 
+@Stable
+fun  LazyListScope.listItem(){
+    items(10){
+
+    }
+}
 @Composable
 fun NewItemText() {
     Column(
